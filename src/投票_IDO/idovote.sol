@@ -108,6 +108,10 @@ contract idovoteContract is  Ownable {
         require(coinAddress != address(0));
         return votecoin[coinAddress];
     }
+    function getpeopleInfo(address coinAddress) public view returns(peopleInfo memory){
+        require(coinAddress != address(0));
+        return votePeople[msg.sender][coinAddress]; 
+    }
     //投票
     //下次投票后，才结算上次投票的收益
     function vote(address coinAddress,uint256 poolTypeId,bool bStatus) public returns(bool) 
