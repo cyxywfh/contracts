@@ -117,13 +117,13 @@ contract idovoteContract is  Ownable {
     function vote(address coinAddress,uint256 poolTypeId,bool bStatus) public returns(bool) 
     {
         require(coinAddress != address(0));
-        require(daoMintingPool.getminerVeDao(msg.sender,coinAddress, poolTypeId) >0);
+        require(daoMintingPool.getminerVeDao(msg.sender,address(DAOToken), poolTypeId) >0);
         require(votePeople[msg.sender][coinAddress].bVoted == false);
         require(lastVoteAddress[msg.sender] != coinAddress); //投过后，就不允许再次投票
         
         peopleInfo memory newpeopleInfo = peopleInfo({
             timestamp:          block.timestamp,
-            veDao:              daoMintingPool.getminerVeDao(msg.sender,coinAddress, poolTypeId),
+            veDao:              daoMintingPool.getminerVeDao(msg.sender,address(DAOToken), poolTypeId),
             bVoted:             true,
             weight:             votePeople[msg.sender][coinAddress].weight,
             peopleVoteIncome:   votePeople[msg.sender][coinAddress].peopleVoteIncome,
