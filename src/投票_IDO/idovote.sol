@@ -142,10 +142,10 @@ contract idovoteContract is  Ownable {
                 uint256 peopleVoteIncome  = votePeople[msg.sender][coinAddress].veDao.mul(votePeople[msg.sender][coinAddress].weight);
                 peopleVoteIncome = peopleVoteIncome.div(10);
                 
-                if( lastVoteStatus[msg.sender] ){
-                    peopleVoteIncome = peopleVoteIncome.div(votecoin[coinAddress].pass);
+                 if( lastVoteStatus[msg.sender] ){
+                        peopleVoteIncome = peopleVoteIncome.div(votecoin[coinAddress].pass+daoMintingPool.getminerVeDao(msg.sender,address(DAOToken), poolTypeId));
                 }else{
-                    peopleVoteIncome = peopleVoteIncome.div(votecoin[coinAddress].deny);
+                        peopleVoteIncome = peopleVoteIncome.div(votecoin[coinAddress].deny+daoMintingPool.getminerVeDao(msg.sender,address(DAOToken), poolTypeId));
                 }
                 votePeople[msg.sender][coinAddress].peopleVoteIncome = peopleVoteIncome;
                 //累计用户总投票收益
